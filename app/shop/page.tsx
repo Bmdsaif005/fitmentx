@@ -1,32 +1,19 @@
-import ProductCard from "@/components/ProductCard";
 
-const products = [
-  {
-    id: 1,
-    name: "BMW E36 Widebody Kit",
-    vehicle: "BMW E36",
-    price: 1899,
-    image: "https://via.placeholder.com/400",
-  },
-  {
-    id: 2,
-    name: "Mustang Fender Flares",
-    vehicle: "Ford Mustang",
-    price: 899,
-    image: "https://via.placeholder.com/400",
-  },
-];
 
-export default function Shop() {
+import { Suspense } from "react";
+import { getAllProducts } from "@/lib/products";
+import ShopClient from "@/components/ShopClient";
+import FitmentFilter from "@/components/FitmentFilter";
+
+export default async function ShopPage() {
+  const products = getAllProducts();
   return (
-    <main className="max-w-7xl mx-auto px-6 py-12">
-      <h1 className="text-3xl font-bold mb-8">Shop Parts</h1>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
+    <main className="max-w-7xl mx-auto px-6 py-20">
+      <h1 className="text-3xl font-bold mb-6">Discover Accessories</h1>
+      <Suspense fallback={<div className="h-20 bg-gunmetal animate-pulse rounded-xl" />}>
+        <div className="mb-16"><FitmentFilter /></div>
+        <ShopClient products={products} />
+      </Suspense>
     </main>
   );
 }

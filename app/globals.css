@@ -17,7 +17,7 @@
 }
 
 /* Expose to Tailwind */
-@theme inline {
+:root {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-accent: var(--accent);
@@ -26,17 +26,317 @@
   --color-gunmetal: var(--gunmetal);
 }
 
-/* Optional: Light mode (rare for car sites) */
-@media (prefers-color-scheme: light) {
-  :root {
-    --background: #ffffff;
-    --foreground: #171717;
-  }
-}
+
 
 /* Global styles */
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Header background override */
+header {
+  background-color: #0b0b0b !important;
+}
+
+/* ================================
+   POINTER CURSOR (IMPORTANT)
+================================ */
+
+/* All links */
+a {
+  cursor: pointer;
+}
+
+/* All buttons */
+button {
+  cursor: pointer;
+}
+
+/* Form elements that are clickable */
+select,
+option,
+input[type="checkbox"],
+input[type="radio"] {
+  cursor: pointer;
+}
+
+/* Utility class for cards / divs */
+.cursor-hover {
+  cursor: pointer;
+}
+/* ================================
+   RED + WHITE AUTOMOTIVE THEME
+   (Aggressive • Premium • Readable)
+================================ */
+
+/* Base body */
+body {
+  background: var(--background);
+  color: #ffffff; /* WHITE body text */
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+}
+
+/* ================================
+   HEADINGS – RED (DOMINANT)
+================================ */
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  color: var(--accent); /* RED */
+  font-family: var(--font-oswald), Arial, Helvetica, sans-serif;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  text-shadow:
+    0 4px 30px rgba(0, 0, 0, 0.9),
+    0 0 25px rgba(225, 6, 0, 0.45);
+}
+
+/* ================================
+   BODY TEXT – WHITE
+================================ */
+
+p,
+span,
+li,
+label,
+small {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Muted text (still white, softer) */
+.text-gray-400,
+.text-gray-300,
+.text-gray-500 {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* ================================
+   LINKS – RED → WHITE ON HOVER
+================================ */
+
+a {
+  color: var(--accent);
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: #ffffff;
+}
+
+/* ================================
+   BUTTONS – RED DOMINANT
+================================ */
+
+button,
+.bg-accent {
+  background: linear-gradient(
+    135deg,
+    var(--accent),
+    #7a0200
+  );
+  color: #ffffff;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow:
+    0 10px 40px rgba(225, 6, 0, 0.6);
+}
+
+button:hover,
+.bg-accent:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow:
+    0 20px 60px rgba(225, 6, 0, 0.9);
+}
+
+/* ================================
+   CARDS – DARK WITH RED EDGE
+================================ */
+
+.bg-gunmetal,
+.cursor-hover {
+  background: linear-gradient(
+    180deg,
+    #121212,
+    #050505
+  );
+  border: 1px solid rgba(225, 6, 0, 0.35);
+  color: #ffffff;
+}
+
+.cursor-hover:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow:
+    0 30px 80px rgba(225, 6, 0, 0.5),
+    inset 0 0 0 1px rgba(225, 6, 0, 0.6);
+}
+
+/* ================================
+   HERO TEXT – EXTRA PUNCH
+================================ */
+
+.hero-title {
+  color: var(--accent);
+  font-size: clamp(3rem, 7vw, 6rem);
+  font-weight: 900;
+  line-height: 1;
+  text-shadow:
+    0 0 35px rgba(225, 6, 0, 0.8),
+    0 12px 70px rgba(0, 0, 0, 1);
+}
+
+/* ================================
+   SCROLLBAR – RED PERFORMANCE
+================================ */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    var(--accent),
+    #7a0200
+  );
+  border-radius: 10px;
+}
+
+/* ================================
+   TEXT COLOR HOVER ENHANCEMENTS
+================================ */
+
+/* Smooth transitions for text */
+h1, h2, h3, h4, h5,
+p, span, a, li {
+  transition: color 0.25s ease, text-shadow 0.25s ease;
+}
+
+/* ================================
+   HEADINGS: RED → WHITE
+================================ */
+
+h1:hover,
+h2:hover,
+h3:hover,
+h4:hover,
+h5:hover {
+  color: #ffffff;
+  text-shadow:
+    0 0 12px rgba(255, 255, 255, 0.6);
+}
+
+/* ================================
+   LINKS: RED → WHITE
+================================ */
+
+a:hover {
+  color: #ffffff;
+}
+
+/* ================================
+   CARD TITLES: WHITE → RED
+================================ */
+
+/* Use this class on card containers */
+.card-hover:hover h3,
+.card-hover:hover h4 {
+  color: var(--accent);
+  text-shadow:
+    0 0 15px rgba(225, 6, 0, 0.7);
+}
+
+/* ================================
+   MUTED TEXT: SOFT → STRONG WHITE
+================================ */
+
+.card-hover:hover p,
+.card-hover:hover span {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+/* ================================
+   NAV ITEMS (HEADER)
+================================ */
+
+nav a {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+nav a:hover {
+  color: var(--accent);
+  text-shadow:
+    0 0 10px rgba(225, 6, 0, 0.8);
+}
+
+/* ================================
+   GENERIC HOVER UTILITY
+================================ */
+
+.text-hover:hover {
+  color: var(--accent);
+}
+/* =========================================
+   FITMENTX DROPDOWN HOVER EFFECTS
+   (Diameter, Width, Bolt Pattern, etc.)
+========================================= */
+
+/* Closed select */
+select {
+  background: linear-gradient(180deg, #121212, #050505);
+  color: #ffffff;
+  border: 1px solid rgba(225, 6, 0, 0.45);
+  border-radius: 0.6rem;
+  padding: 0.6rem 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* Select hover (closed) */
+select:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(225, 6, 0, 0.25);
+}
+
+/* Select focus */
+select:focus {
+  outline: none;
+  color: var(--accent);
+  border-color: var(--accent);
+  box-shadow:
+    0 0 0 2px rgba(225, 6, 0, 0.45),
+    0 0 18px rgba(225, 6, 0, 0.6);
+}
+
+/* Dropdown options */
+option {
+  background-color: #0b0b0b;
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Option hover (Firefox + some browsers) */
+option:hover {
+  background-color: var(--accent);
+  color: #ffffff;
+}
+
+/* Selected option */
+option:checked {
+  background-color: var(--accent);
+  color: #ffffff;
 }

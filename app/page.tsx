@@ -1,104 +1,162 @@
-import FitmentFilter from "@/components/FitmentFilter";
+"use client";
+
+import BrandAccessories from "@/components/BrandAccessories";
+
+import { useCart } from "@/components/cart/CartContext";
 
 export default function Home() {
+  const { addItem } = useCart();
+
+  const categories = [
+    "Wheels & Tires",
+    "Suspension & Lift Kits",
+    "Widebody & Exterior",
+    "Lighting & Electrical",
+    "Interior Accessories",
+    "Performance Parts",
+    "Off-Road Accessories",
+    "Maintenance & Tools",
+  ];
+
   return (
     <>
-      {/* ================= HERO SECTION WITH VIDEO ================= */}
-      <section className="relative h-[85vh] flex items-center justify-center text-center bg-background overflow-hidden">
+      {/* ================= HERO SECTION ================= */}
+     <section className="relative h-[85vh] flex items-center justify-center text-center overflow-hidden bg-background">
 
-        {/* 🔥 Background Video */}
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-        >
-          <source src="/wheel-fitment-showcase.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+  {/* 🎥 BRIGHTENED VIDEO */}
+  <video
+  autoPlay
+  loop
+  muted
+  playsInline
+  className="absolute inset-0 w-full h-full object-cover
+             brightness-130 contrast-120 saturate-115"
+>
+  <source src="/wheel-fitment-showcase.mp4" type="video/mp4" />
+</video>
 
-        {/* 🌑 Dark Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/60 to-black"></div>
 
-        {/* 🧱 Hero Content */}
-        <div className="relative z-10 max-w-5xl px-6">
-          <h1 className="text-6xl md:text-7xl font-extrabold tracking-tight mb-6">
-            Built for{" "}
-            <span className="text-accent">Perfect Fitment</span>
-          </h1>
+  {/* 🌑 DARK OVERLAY (READABILITY) */}
+  <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-black/40 to-black/65"></div>
 
-          <p className="text-lg md:text-xl text-gray-300 mb-10">
-            Wheels • Widebody Kits • Suspension •{" "}
-            <span className="text-monster font-semibold">
-              Performance Parts
-            </span>
-          </p>
+  {/* 🔴 SUBTLE THEME MERGE (RED TINT) */}
+  <div className="absolute inset-0 bg-red-900/10 mix-blend-multiply"></div>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="/shop"
-              className="bg-accent text-white px-10 py-4 rounded-lg font-semibold text-lg hover:opacity-90 transition"
-            >
-              Shop by Vehicle
-            </a>
+  {/* 🧱 CONTENT */}
+  <div className="relative z-10 max-w-5xl px-6">
+    <h1 className="hero-title mb-6">
+      The Ultimate <span className="text-accent">Auto Accessories</span> Marketplace
+    </h1>
 
-            <a
-              href="/gallery"
-              className="border border-gray-400 text-white px-10 py-4 rounded-lg font-semibold text-lg hover:border-accent transition"
-            >
-              View Builds
-            </a>
-          </div>
-        </div>
-      </section>
+    <p className="text-lg md:text-xl text-white/90 mb-10">
+      Wheels, suspension, body kits, lighting, interiors, performance parts
+      — all in one place.
+    </p>
 
-      {/* ================= FLOATING FITMENT FILTER ================= */}
-      <section className="-mt-20 relative z-20">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="bg-gunmetal rounded-xl shadow-2xl p-8">
-            <h3 className="text-2xl font-bold mb-6 text-bmw">
-              Find Parts That Fit Your Vehicle
-            </h3>
+    <div className="flex flex-col sm:flex-row gap-4 justify-center">
+      <a
+        href="/shop"
+        className="bg-accent px-10 py-4 rounded-lg font-semibold
+                   hover:scale-105 transition"
+      >
+        Browse All Accessories
+      </a>
 
-            <FitmentFilter />
-          </div>
-        </div>
-      </section>
+      <a
+        href="/gallery"
+        className="border border-white/70 px-10 py-4 rounded-lg font-semibold
+                   hover:border-accent transition"
+      >
+        View Real Builds
+      </a>
+    </div>
+  </div>
+</section>
 
-      {/* ================= CATEGORY STRIP ================= */}
+
+   
+      {/* ================= SHOP BY ACCESSORY TYPE (ADD TO CART) ================= */}
       <section className="max-w-7xl mx-auto px-6 py-20">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <h2 className="text-3xl font-bold mb-12">
+          Shop by <span>Accessory Type</span>
+        </h2>
 
-          <div className="bg-gunmetal rounded-xl p-8 hover:border hover:border-accent transition">
-            <h4 className="text-lg font-bold mb-2">Wheels</h4>
-            <p className="text-gray-400 text-sm">
-              Street • Track • Off-Road
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          {categories.map((item) => (
+              <button
+                key={item}
+                onClick={() => addItem({ name: item })}
+                className="w-full text-left bg-gunmetal p-8 rounded-xl cursor-hover 
+                          hover:border hover:border-accent transition focus:ring-2 focus:ring-accent"
+                aria-label={`Add ${item} to cart`}
+              >
+                <h3 className="font-bold text-lg mb-2">{item}</h3>
+                <p className="text-sm opacity-80">Click to add to cart</p>
+              </button>
+          ))}
+        </div>
+      </section>
+
+      {/* ================= POPULAR ACCESSORIES ================= */}
+      <section className="bg-gunmetal py-20">
+        <div className="max-w-7xl mx-auto px-6">
+          <h2 className="text-3xl font-bold mb-10">
+            Popular Accessories
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              "Alloy Wheels",
+              "LED Headlights",
+              "Performance Exhausts",
+              "Seat Covers",
+              "Off-Road Tires",
+              "Roof Racks",
+            ].map((item) => (
+              <div
+                key={item}
+                className="bg-background p-6 rounded-xl cursor-hover"
+              >
+                <h4 className="font-semibold mb-2">{item}</h4>
+                <p className="text-sm opacity-70">
+                  Top-rated aftermarket accessory
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ================= BRAND ACCESSORIES (REUSABLE COMPONENT) ================= */}
+      <BrandAccessories />
+
+      {/* ================= ACCESSORIES FOR EVERY NEED ================= */}
+      <section className="max-w-7xl mx-auto px-6 py-20">
+        <h2 className="text-3xl font-bold mb-10">
+          Accessories for Every Need
+        </h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="bg-gunmetal p-8 rounded-xl cursor-hover">
+            <h3 className="font-bold mb-2">Daily Driving</h3>
+            <p className="text-sm opacity-80">
+              Comfort, safety, and convenience accessories
             </p>
           </div>
 
-          <div className="bg-gunmetal rounded-xl p-8 hover:border hover:border-accent transition">
-            <h4 className="text-lg font-bold mb-2">Widebody Kits</h4>
-            <p className="text-gray-400 text-sm">
-              Aggressive stance
+          <div className="bg-gunmetal p-8 rounded-xl cursor-hover">
+            <h3 className="font-bold mb-2">Performance & Racing</h3>
+            <p className="text-sm opacity-80">
+              Engine, exhaust, suspension upgrades
             </p>
           </div>
 
-          <div className="bg-gunmetal rounded-xl p-8 hover:border hover:border-accent transition">
-            <h4 className="text-lg font-bold mb-2">Suspension</h4>
-            <p className="text-gray-400 text-sm">
-              Lift • Lower • Performance
+          <div className="bg-gunmetal p-8 rounded-xl cursor-hover">
+            <h3 className="font-bold mb-2">Off-Road & Adventure</h3>
+            <p className="text-sm opacity-80">
+              Lift kits, tires, recovery gear
             </p>
           </div>
-
-          <div className="bg-gunmetal rounded-xl p-8 hover:border hover:border-accent transition">
-            <h4 className="text-lg font-bold mb-2">Monster Builds</h4>
-            <p className="text-monster text-sm font-semibold">
-              Extreme setups
-            </p>
-          </div>
-
         </div>
       </section>
     </>
