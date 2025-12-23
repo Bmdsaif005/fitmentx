@@ -5,11 +5,14 @@ import { createContext, useContext, useState, useEffect } from "react";
 
 type CartItem = {
   name: string;
+  price?: number;
 };
 
 type CartContextType = {
   items: CartItem[];
   addItem: (item: CartItem) => void;
+  removeItem: (index: number) => void;
+  clearCart: () => void;
 };
 
 const CartContext = createContext<CartContextType | null>(null);
@@ -39,8 +42,16 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     setItems((prev) => [...prev, item]);
   };
 
+  const removeItem = (index: number) => {
+    setItems((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const clearCart = () => {
+    setItems([]);
+  };
+
   return (
-    <CartContext.Provider value={{ items, addItem }}>
+    <CartContext.Provider value={{ items, addItem, removeItem, clearCart }}>
       {children}
     </CartContext.Provider>
   );
