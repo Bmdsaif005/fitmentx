@@ -1,15 +1,17 @@
-# Support Page Implementation
+# TODO List for Shop Page Modifications
 
-## Completed Tasks
-- [x] Create support page directory and page.tsx
-- [x] Add Core Contact & Communication section (Contact Form, Department Emails)
-- [x] Add Technical & Product Support section (Fitment Guide, Wheel Care, Video Tutorials)
-- [x] Add Order & Policy Information section (Shipping, Warranty, Returns)
-- [x] Add Interactive Tools section (Compatibility Checker, Gallery Submission)
-- [x] Include Header and Footer for consistency
-- [x] Use theme-consistent styling with hero-title and dark theme variables
+## Original Task
+- [x] Remove "Add to Cart" buttons from "Shop by Accessory Type" section in page.tsx
+- [x] Add "Add to Cart" buttons to all products in ShopClient.tsx
 
-## Remaining Tasks
-- [ ] Test the support page functionality
-- [ ] Verify all links and forms work correctly
-- [ ] Ensure responsive design on different screen sizes
+## Additional Feature: Enhanced Filters
+- [x] Add brand filter dropdown to ShopClient.tsx
+- [x] Add more sorting options (e.g., name, brand) to ShopClient.tsx
+- [x] Ensure filters work like Amazon/Flipkart (multiple filters, clear filters)
+- [x] Add accessory type filter dropdown to ShopClient.tsx
+- [x] Make "Shop by Accessory Type" section in home page clickable to filter shop
+
+## Testing
+- [x] Test cart functionality after changes (Add to Cart buttons added to products)
+- [x] Verify filters work correctly (Brand and accessory type filters implemented)
+- [x] Test accessory type navigation from home page (Links added to accessory types)

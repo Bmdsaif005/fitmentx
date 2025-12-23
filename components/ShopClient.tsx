@@ -3,6 +3,7 @@
 import { useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
 import { Product } from "@/lib/products";
+import { useCart } from "@/components/cart/CartContext";
 
 export default function ShopClient({
   products,
@@ -10,6 +11,7 @@ export default function ShopClient({
   products: Product[];
 }) {
   const params = useSearchParams();
+  const { addItem } = useCart();
 
   const diameter = params.get("diameter") || "";
   const width = params.get("width") || "";
@@ -18,9 +20,19 @@ export default function ShopClient({
   const finish = params.get("finish") || "";
 
   const [sort, setSort] = useState("");
+  const [brand, setBrand] = useState("");
+  const [accessoryType, setAccessoryType] = useState(params.get("accessoryType") || "");
 
   const hasFilters =
-    diameter || width || boltPattern || profile || finish;
+    diameter || width || boltPattern || profile || finish || brand || accessoryType;
+
+  /* =======================
+     GET UNIQUE BRANDS
+  ======================= */
+  const brands = useMemo(
+    () => Array.from(new Set(products.map((p) => p.brand))).sort(),
+    [products]
+  );
 
   /* =======================
      FILTER PRODUCTS
@@ -60,6 +72,22 @@ export default function ShopClient({
       return [...list].sort((a, b) => b.price - a.price);
     }
 
+    if (sort === "name-asc") {
+      return [...list].sort((a, b) => a.name.localeCompare(b.name));
+    }
+
+    if (sort === "name-desc") {
+      return [...list].sort((a, b) => b.name.localeCompare(a.name));
+    }
+
+    if (sort === "brand-asc") {
+      return [...list].sort((a, b) => a.brand.localeCompare(b.brand));
+    }
+
+    if (sort === "brand-desc") {
+      return [...list].sort((a, b) => b.brand.localeCompare(a.brand));
+    }
+
     return list;
   }, [products, filteredProducts, hasFilters, sort]);
 
@@ -73,16 +101,53 @@ export default function ShopClient({
             : `Showing ${sortedProducts.length} wheels`}
         </p>
 
-        {/* SORT DROPDOWN */}
-        <select
-          value={sort}
-          onChange={(e) => setSort(e.target.value)}
-          className="w-full md:w-64"
-        >
-          <option value="">Sort by</option>
-          <option value="price-asc">Price: Low → High</option>
-          <option value="price-desc">Price: High → Low</option>
-        </select>
+        <div className="flex gap-4">
+          {/* ACCESSORY TYPE DROPDOWN */}
+          <select
+            value={accessoryType}
+            onChange={(e) => setAccessoryType(e.target.value)}
+            className="w-full md:w-48"
+          >
+            <option value="">All Accessories</option>
+            <option value="Wheels & Tires">Wheels & Tires</option>
+            <option value="Suspension & Lift Kits">Suspension & Lift Kits</option>
+            <option value="Widebody & Exterior">Widebody & Exterior</option>
+            <option value="Lighting & Electrical">Lighting & Electrical</option>
+            <option value="Interior Accessories">Interior Accessories</option>
+            <option value="Performance Parts">Performance Parts</option>
+            <option value="Off-Road Accessories">Off-Road Accessories</option>
+            <option value="Maintenance & Tools">Maintenance & Tools</option>
+          </select>
+
+          {/* BRAND DROPDOWN */}
+          <select
+            value={brand}
+            onChange={(e) => setBrand(e.target.value)}
+            className="w-full md:w-48"
+          >
+            <option value="">All Brands</option>
+            {brands.map((b) => (
+              <option key={b} value={b}>
+                {b}
+              </option>
+            ))}
+          </select>
+
+          {/* SORT DROPDOWN */}
+          <select
+            value={sort}
+            onChange={(e) => setSort(e.target.value)}
+            className="w-full md:w-64"
+          >
+            <option value="">Sort by</option>
+            <option value="name-asc">Name: A → Z</option>
+            <option value="name-desc">Name: Z → A</option>
+            <option value="brand-asc">Brand: A → Z</option>
+            <option value="brand-desc">Brand: Z → A</option>
+            <option value="price-asc">Price: Low → High</option>
+            <option value="price-desc">Price: High → Low</option>
+          </select>
+        </div>
       </div>
 
       {/* PRODUCTS GRID */}
@@ -132,6 +197,13 @@ export default function ShopClient({
               <p className="mt-4 font-bold text-accent">
                 ${product.price.toLocaleString()}
               </p>
+
+              <button
+                onClick={() => addItem({ name: product.name, price: product.price })}
+                className="mt-4 w-full bg-accent text-white py-2 rounded hover:bg-red-700 transition"
+              >
+                Add to Cart
+              </button>
             </div>
           ))}
         </div>
